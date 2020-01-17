@@ -36,7 +36,7 @@
 
     #PlayList {
         grid-area: PlayList;
-        height: 600;
+        height: 600px;
         overflow-x: scroll;
     }
 </style>
@@ -47,18 +47,19 @@
     <a class="personalizado" href="javascript:void(0)" onclick="btnSearch()">Buscar &raquo;</a>
     <br />
     <br />
-    <div id="VideoPlay">
+    <div id="player">
 
 
     </div><div style="color:darkgray" align="right" class="container" id="ListYoutube">
 
     </div>
-    <p style="color:darkgray">PlayList: to play a video just click on image</p>
+    @*<p style="color:darkgray">PlayList: to play a video just click on image</p>
     <div style="overflow-x:scroll;">
         <table class=" table table-striped table-bordered table-hover">
-            <tr id="PlayList"></tr>
+            <tr id="playList"></tr>
         </table>
-    </div>
+    </div>*@
+    <div id="playList"></div>
 </body>
 <script>
     function btnSearch() {
@@ -67,29 +68,6 @@
             type: "GET",
             success: function (result) {
                 $('#ListYoutube').html(result);
-            }
-        });
-    }
-
-    function btnadd(Id) {
-        console.log(Id);
-       $.ajax({
-           url: '@Url.Action("AddPlayList")?idVideo=' + Id,
-           type: "GET",
-           success: function (result) {
-               $('#PlayList').html(result);
-           }
-        });
-    }
-
-    function btnReproducirVideo(Id) {
-        console.log(Id);
-        $.ajax({
-            url: '@Url.Action("reproduceVideo")?idVideo=' + Id,
-            type: "GET",
-            success: function (result) {
-                console.log(result);
-                $('#VideoPlay').html(result);
             }
         });
     }
