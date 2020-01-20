@@ -40,26 +40,33 @@
         overflow-x: scroll;
     }
 </style>
-<body style="background-color:black">
-    <br />
-    <input type="text" class="form-control" id="txtsearch" placeholder="Buscar" />
-    <br />
-    <a class="personalizado" href="javascript:void(0)" onclick="btnSearch()">Buscar &raquo;</a>
-    <br />
-    <br />
-    <div id="player">
-
-
-    </div><div style="color:darkgray" align="right" class="container" id="ListYoutube">
-
+<br />
+<body style="background-color:black;color:lightgrey">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" style="background-color: #737373; color:white" class="form-control" id="Search" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" href="javascript:void(0)" onclick="btnSearch()"> <i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                <br />
+                <div style="width:100%" class="container" id="ListYoutube"></div>
+            </div>
+            <div class="col-md-7">
+                <div id="player"></div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Playlist</h2>
+            <div style="width:100%;position:center;overflow-x:scroll">
+                <table>
+                    <tr id="playList"></tr>
+                </table>
+            </div>
+        </div>
     </div>
-    @*<p style="color:darkgray">PlayList: to play a video just click on image</p>
-    <div style="overflow-x:scroll;">
-        <table class=" table table-striped table-bordered table-hover">
-            <tr id="playList"></tr>
-        </table>
-    </div>*@
-    <div id="playList"></div>
 </body>
 <script>
     function btnSearch() {
