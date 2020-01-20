@@ -41,6 +41,9 @@
     var videoStopped = false;
 
     function onYouTubeIframeAPIReady(idVideo) {
+        if (idVideo == null || idVideo == "") {
+            idVideo = 'DqXtSyPSw_0';
+        }
         player = new YT.Player('player', {
             height: '360',
             width: '640',
