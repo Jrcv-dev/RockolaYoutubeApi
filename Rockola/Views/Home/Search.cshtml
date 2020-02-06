@@ -1,4 +1,4 @@
-﻿@model List<Google.Apis.YouTube.v3.Data.SearchResult>
+﻿@model List<Rockola.ServiceReference1.Videos>
 
 <style>
     .personalizado {
@@ -17,11 +17,12 @@
 
 @for (int i = 0; i < @Model.Count; i++)
 {
-    @Model[i].Snippet.Title
-    <button align="rigth" class="btn-success personalizado btn-sm" onclick="player.destroy();onYouTubeIframeAPIReady('@Model[i].Id.VideoId')">Play</button>
-    <button class="btn-success personalizado btn-sm" onclick="addToPlayList('@Model[i].Id.VideoId','@Model[i].Snippet.Thumbnails.Default__.Url')">Add</button>
-    <img onclick="btnReproducirVideo('@Model[i].Id.VideoId')" class="img-responsive" src="http://img.youtube.com/vi/@Model[i].Id.VideoId/mqdefault.jpg" alt="@Model[i].Snippet.Title">
-    <input id=i type="hidden" value="@Model[i].Id.VideoId" />
+
+    @Model[i].tittle
+    <button align="rigth" class="btn-success personalizado btn-sm" onclick="player.destroy();onYouTubeIframeAPIReady('@Model[i].ID')">Play</button>
+    <button class="btn-success personalizado btn-sm" onclick="addToPlayList('@Model[i].ID','@Model[i].url')">Add</button>
+    <img onclick="btnReproducirVideo('@Model[i].ID')" class="img-responsive" src="http://img.youtube.com/vi/@Model[i].ID/mqdefault.jpg" alt="@Model[i].tittle">
+    <input id=i type="hidden" value="@Model[i].ID" />
     <br />
 }
 

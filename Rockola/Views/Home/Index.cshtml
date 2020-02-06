@@ -71,7 +71,7 @@
 <script>
     function btnSearch() {
         $.ajax({
-            url: '@Url.Action("SearchVideo")?Keyword=' + $('#txtsearch').val(),
+            url: '@Url.Action("SearchVideo")?Keyword=' + $('#Search').val(),
             type: "GET",
             success: function (result) {
                 $('#ListYoutube').html(result);

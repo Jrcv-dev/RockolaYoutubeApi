@@ -6,6 +6,7 @@ using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Web.Mvc;
+using Rockola.ServiceReference1;
 
 namespace Rockola.Controllers
 {
@@ -19,19 +20,14 @@ namespace Rockola.Controllers
         [HttpGet]
         public ActionResult SearchVideo(string Keyword)
         {
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            List<Videos> vidios = new List<Videos>();
+            ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+            var v = client.GetListYoutube(Keyword);
+            foreach (var item in v)
             {
-                ApiKey = "AIzaSyAV7dZdpjsqH9K2IkJ0tlqHWklDay0qMW4",
-                ApplicationName = this.GetType().ToString()
-            });
-
-            var searchListRequest = youtubeService.Search.List("snippet");
-            searchListRequest.Q = Keyword; // Replace with your search term.
-            searchListRequest.MaxResults = 10;
-
-            // Call the search.list method to retrieve results matching the specified query term.
-            var searchListResponse = searchListRequest.Execute();
-            return PartialView("Search", searchListResponse.Items);
+                vidios.Add(new Videos { ID=item.ID, tittle = item.tittle });
+            }
+            return PartialView("Search", vidios);
         }
         [HttpGet]
         public ActionResult AddPlayList(string idVideo)
