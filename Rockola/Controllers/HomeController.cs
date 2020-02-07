@@ -7,6 +7,8 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Web.Mvc;
 using Rockola.ServiceReference1;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Rockola.Controllers
 {
@@ -20,14 +22,32 @@ namespace Rockola.Controllers
         [HttpGet]
         public ActionResult SearchVideo(string Keyword)
         {
-            List<Videos> vidios = new List<Videos>();
+            /*Consuming a WCF Service.
+
+             * List<Videos> vidios = new List<Videos>();
             ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
             var v = client.GetListYoutube(Keyword);
             foreach (var item in v)
             {
                 vidios.Add(new Videos { ID=item.ID, tittle = item.tittle });
             }
-            return PartialView("Search", vidios);
+            return PartialView("Search", vidios);*/
+
+
+            //Consumiendo API
+            List<Videos> lisvideos = new List<Videos>();
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:57657/");
+            var response =  client.GetAsync("api/MTT/GetVideo?keyword="+Keyword);
+            response.Wait();
+            var result = response.Result;
+            var readresult = result.Content.ReadAsStringAsync().Result;
+            var resultadoFinal = JsonConvert.DeserializeObject<List<Videos>>(readresult);
+            //foreach (var item in resultadoFinal)
+            //{
+            //    lisvideos.Add(new Videos { ID = item.ID, tittle = item.tittle });
+            //}
+            return PartialView("Search", resultadoFinal);
         }
         [HttpGet]
         public ActionResult AddPlayList(string idVideo)
