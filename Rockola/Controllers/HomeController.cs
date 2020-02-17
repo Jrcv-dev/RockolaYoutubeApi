@@ -37,7 +37,7 @@ namespace Rockola.Controllers
             //Consumiendo API
             List<Videos> lisvideos = new List<Videos>();
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:57657/");
+            client.BaseAddress = new Uri("http://localhost:80/");
             var response =  client.GetAsync("api/MTT/GetVideo?keyword="+Keyword);
             response.Wait();
             var result = response.Result;
@@ -61,10 +61,14 @@ namespace Rockola.Controllers
             Session["Playlist"] = auxList;
             return PartialView("AddPlay", auxList);
         }
-        [HttpGet]
-        public ActionResult reproduceVideo(string idVideo)
+        [HttpPost]
+        public ActionResult AddVideoId(string idVideo)
         {
-            return PartialView("reproduceVideo", idVideo);
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:61656/");
+            var response = client.PostAsync("api/Historial/Video?videoId=" + idVideo, new StringContent(""));
+            response.Wait();
+            return PartialView("Search");
         }
         public ActionResult About()
         {

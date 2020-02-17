@@ -10,13 +10,14 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        width:70px;
-        height:40px;
+        width: 70px;
+        height: 40px;
     }
 </style>
-
-@for (int i = 0; i < @Model.Count; i++)
+@try
 {
+    for (int i = 0; i < @Model.Count; i++)
+    {
 
     @Model[i].tittle
     <button align="rigth" class="btn-success personalizado btn-sm" onclick="player.destroy();onYouTubeIframeAPIReady('@Model[i].ID')">Play</button>
@@ -24,6 +25,10 @@
     <img onclick="btnReproducirVideo('@Model[i].ID')" class="img-responsive" src="http://img.youtube.com/vi/@Model[i].ID/mqdefault.jpg" alt="@Model[i].tittle">
     <input id=i type="hidden" value="@Model[i].ID" />
     <br />
+    }
+}catch(System.Exception e)
+{
+
 }
 
 <script>
@@ -54,6 +59,8 @@
                 'onStateChange': onPlayerStateChange
             }
         });
+        console.log("CAMBIO EL ID DEL VIDEO: ", idVideo)
+        AddVideo(idVideo);
     }
 
     // 4. The API will call this function when the video player is ready.
@@ -67,7 +74,6 @@
     var done = false;
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING) {
-
             band = true;
 
         } else if (event.data == YT.PlayerState.PAUSED) {
@@ -115,6 +121,15 @@
         firstCell.remove();
         player.destroy();
         onYouTubeIframeAPIReady(videoId);
+    }
+    function AddVideo(videoId) {
+        $.ajax({
+            url: '@Url.Action("AddVideoId")?idVideo=' + videoId,
+            type: "POST",
+            success: function (result) {
+                console.log("ksdlskdnladm",result);
+            }
+        });
     }
 </script>
 <style>

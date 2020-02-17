@@ -1,0 +1,9 @@
+﻿@model List<string>
+
+@foreach (var item in Model)
+{
+    <td>
+        <img onclick="btnReproducirVideo('@item')" src="http://img.youtube.com/vi/@item/mqdefault.jpg" alt="@item">
+    </td>
+}
+

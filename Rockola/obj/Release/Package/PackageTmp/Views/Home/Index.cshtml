@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style type="text/css">
+    .personalizado{
+        text-decoration: none;
+        padding: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: helvetica;
+        font-weight: 300;
+        font-size: 25px;
+        font-style: italic;
+        color: #006505;
+        background-color: #82b085;
+        border-radius: 15px;
+        border: 3px double #006505;
+    }
+
+        .boton_1:hover {
+            opacity: 0.6;
+            text-decoration: none;
+        }
+</style>
+<style>
+    #ListYoutube {
+        grid-area: ListYoutube;
+        height: 300px;
+        overflow-y: scroll;
+    }
+
+    #VideoPlay {
+        grid-area: VideoPlay;
+        height: 500;
+    }
+
+    #PlayList {
+        grid-area: PlayList;
+        height: 600px;
+        overflow-x: scroll;
+    }
+</style>
+<br />
+<body style="background-color:black;color:lightgrey">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" style="background-color: #737373; color:white" class="form-control" id="Search" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" href="javascript:void(0)" onclick="btnSearch()"> <i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                <br />
+                <div style="width:100%" class="container" id="ListYoutube"></div>
+            </div>
+            <div class="col-md-7">
+                <div id="player"></div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Playlist</h2>
+            <div style="width:100%;position:center;overflow-x:scroll">
+                <table>
+                    <tr id="playList"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function btnSearch() {
+        $.ajax({
+            url: '@Url.Action("SearchVideo")?Keyword=' + $('#Search').val(),
+            type: "GET",
+            success: function (result) {
+                $('#ListYoutube').html(result);
+            }
+        });
+    }
+</script>
